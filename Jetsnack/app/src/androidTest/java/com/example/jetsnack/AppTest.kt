@@ -16,10 +16,8 @@
 
 package com.example.jetsnack
 
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -37,13 +35,6 @@ class AppTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-//    @Before
-//    fun setUp() {
-//        composeTestRule.setContent {
-//            JetsnackApp()
-//        }
-//    }
-
     @Test
     fun app_launches() {
         // Check app launches at the correct destination
@@ -56,28 +47,30 @@ class AppTest {
         composeTestRule.onNodeWithText("MY CART").performClick().assertIsDisplayed()
     }
 
-//    @Test
-//    fun app_canNavigateToAllScreens() {
-//        // Check app launches at HOME
-//        composeTestRule.onNodeWithText("HOME").assertIsDisplayed()
-//        composeTestRule.onNodeWithText("Android's picks").assertIsDisplayed()
-//
-//        // Navigate to Search
-//        composeTestRule.onNodeWithText("SEARCH").performClick().assertIsDisplayed()
-//        composeTestRule.onNodeWithText("Categories").assertIsDisplayed()
-//
-//        // Navigate to Cart
-//        composeTestRule.onNodeWithText("MY CART").performClick().assertIsDisplayed()
-//        composeTestRule.onNodeWithText("Order (3 items)").assertIsDisplayed()
-//
-//        // Navigate to Profile
-//        composeTestRule.onNodeWithText("PROFILE").performClick().assertIsDisplayed()
-//        composeTestRule.onNodeWithText("This is currently work in progress").assertIsDisplayed()
-//    }
-//
-//    @Test
-//    fun app_canNavigateToDetailPage() {
-//        composeTestRule.onNodeWithText("Chips").performClick()
-//        composeTestRule.onNodeWithText("Lorem ipsum", substring = true).assertIsDisplayed()
-//    }
+    @Test
+    fun testDecreaseOneSnack() {
+        composeTestRule.onNodeWithText("MY CART").performClick().assertIsDisplayed()
+//        composeTestRule.onRoot().printToLog("currentLabelExists")
+        composeTestRule.onNode(hasText("3") and hasAnySibling(hasText("Ice Cream Sandwich")), useUnmergedTree = true).assertIsDisplayed()
+        composeTestRule.onNode(hasContentDescription("Decrease") and hasAnyAncestor(
+            hasText("Ice Cream Sandwich")
+        )).performClick()
+        composeTestRule.onNode(hasText("2") and hasAnySibling(hasText("Ice Cream Sandwich")), useUnmergedTree = true).assertIsDisplayed()
+    }
+
+    @Test
+    fun testDecreaseAllOfSnack() {
+        composeTestRule.onNodeWithText("MY CART").performClick().assertIsDisplayed()
+//        composeTestRule.onRoot().printToLog("currentLabelExists")
+        composeTestRule.onNode(hasText("Ice Cream Sandwich")).assertIsDisplayed()
+        for (i in 1..3) {
+            composeTestRule.onNode(
+                hasContentDescription("Decrease") and hasAnyAncestor(
+                    hasText("Ice Cream Sandwich")
+                )
+            ).performClick()
+        }
+        composeTestRule.onRoot().printToLog("currentLabelExists")
+        composeTestRule.onNode(hasText("Ice Cream Sandwich")).assertDoesNotExist()
+    }
 }
