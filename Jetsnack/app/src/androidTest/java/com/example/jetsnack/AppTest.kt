@@ -20,23 +20,29 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.example.jetsnack.ui.JetsnackApp
 import com.example.jetsnack.ui.MainActivity
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.util.regex.Pattern.matches
 
 class AppTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-    @Before
-    fun setUp() {
-        composeTestRule.setContent {
-            JetsnackApp()
-        }
-    }
+//    @Before
+//    fun setUp() {
+//        composeTestRule.setContent {
+//            JetsnackApp()
+//        }
+//    }
 
     @Test
     fun app_launches() {
@@ -46,27 +52,32 @@ class AppTest {
     }
 
     @Test
-    fun app_canNavigateToAllScreens() {
-        // Check app launches at HOME
-        composeTestRule.onNodeWithText("HOME").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Android's picks").assertIsDisplayed()
-
-        // Navigate to Search
-        composeTestRule.onNodeWithText("SEARCH").performClick().assertIsDisplayed()
-        composeTestRule.onNodeWithText("Categories").assertIsDisplayed()
-
-        // Navigate to Cart
+    fun testOpenCartScreen() {
         composeTestRule.onNodeWithText("MY CART").performClick().assertIsDisplayed()
-        composeTestRule.onNodeWithText("Order (3 items)").assertIsDisplayed()
-
-        // Navigate to Profile
-        composeTestRule.onNodeWithText("PROFILE").performClick().assertIsDisplayed()
-        composeTestRule.onNodeWithText("This is currently work in progress").assertIsDisplayed()
     }
 
-    @Test
-    fun app_canNavigateToDetailPage() {
-        composeTestRule.onNodeWithText("Chips").performClick()
-        composeTestRule.onNodeWithText("Lorem ipsum", substring = true).assertIsDisplayed()
-    }
+//    @Test
+//    fun app_canNavigateToAllScreens() {
+//        // Check app launches at HOME
+//        composeTestRule.onNodeWithText("HOME").assertIsDisplayed()
+//        composeTestRule.onNodeWithText("Android's picks").assertIsDisplayed()
+//
+//        // Navigate to Search
+//        composeTestRule.onNodeWithText("SEARCH").performClick().assertIsDisplayed()
+//        composeTestRule.onNodeWithText("Categories").assertIsDisplayed()
+//
+//        // Navigate to Cart
+//        composeTestRule.onNodeWithText("MY CART").performClick().assertIsDisplayed()
+//        composeTestRule.onNodeWithText("Order (3 items)").assertIsDisplayed()
+//
+//        // Navigate to Profile
+//        composeTestRule.onNodeWithText("PROFILE").performClick().assertIsDisplayed()
+//        composeTestRule.onNodeWithText("This is currently work in progress").assertIsDisplayed()
+//    }
+//
+//    @Test
+//    fun app_canNavigateToDetailPage() {
+//        composeTestRule.onNodeWithText("Chips").performClick()
+//        composeTestRule.onNodeWithText("Lorem ipsum", substring = true).assertIsDisplayed()
+//    }
 }
