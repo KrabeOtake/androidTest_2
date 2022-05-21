@@ -11,7 +11,7 @@ pipeline {
         stage('Build app') {
             steps {
 				sh "cd Jetsnack"
-                sh "./gradlew assembleDebug"
+                sh "Jetsnack/./gradlew assembleDebug"
             }
         }
 
