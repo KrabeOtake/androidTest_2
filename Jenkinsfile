@@ -4,6 +4,7 @@ def COLOR_MAP = [
 ]
 
 pipeline {
+    agent { label 'qtest'}
 
     stages {
         // The first two stages below are explicitly mentioned so they are reported in Jenkins properly.
