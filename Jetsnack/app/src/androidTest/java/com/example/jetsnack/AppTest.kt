@@ -63,6 +63,7 @@ class AppTest {
         composeTestRule.onNodeWithText("MY CART").performClick().assertIsDisplayed()
 //        composeTestRule.onRoot().printToLog("currentLabelExists")
         composeTestRule.onNode(hasText("Ice Cream Sandwich")).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("Total amount").assertTextEquals("\$58.13")
         for (i in 1..3) {
             composeTestRule.onNode(
                 hasContentDescription("Decrease") and hasAnyAncestor(
@@ -71,6 +72,6 @@ class AppTest {
             ).performClick()
         }
         composeTestRule.onRoot().printToLog("currentLabelExists")
-        composeTestRule.onNode(hasText("Ice Cream Sandwich")).assertDoesNotExist()
+        composeTestRule.onNodeWithTag("Total amount").assertTextEquals("\$19.16")
     }
 }

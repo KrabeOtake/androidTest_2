@@ -62,6 +62,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -451,7 +452,7 @@ fun SummaryItem(
             Text(
                 text = formatPrice(subtotal + shippingCosts),
                 style = MaterialTheme.typography.subtitle1,
-                modifier = Modifier.alignBy(LastBaseline)
+                modifier = Modifier.alignBy(LastBaseline).testTag("Total amount")
             )
         }
         JetsnackDivider()
